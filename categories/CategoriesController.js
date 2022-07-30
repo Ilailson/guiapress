@@ -63,6 +63,8 @@ router.get("/admin/categories/edit/:id",(req, res) =>{
         res.redirect("/admin/categories")
     }
 
+
+  //=====================================Atualizar no banco=========================  
     //pesquisando categorias no banco
     Category.findByPk(id)
     .then(category => {
@@ -80,4 +82,16 @@ router.get("/admin/categories/edit/:id",(req, res) =>{
     
 })
 
+
+router.post("/categories/update", (req, res) => {
+    var id = req.body.id
+    var title = req.body.title
+
+    Category.update({title:title, slug: slugify(title)},
+    {where: {id:id}
+})
+    .then(category => {res.redirect("/admin/categories")})
+})
+
+//Fim atualização
 module.exports = router
