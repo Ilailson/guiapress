@@ -26,8 +26,15 @@ router.post("/categories/save",(req, res) => {
 
 
 router.get("/admin/categories",(req, res) => {
+
+    //mostrando categorias salvas no banco
+    Category.findAll().then(categories => {
+
+
+        res.render("admin/categories/index", {categories: categories})
+    })
     
-        res.render("admin/categories/index")
+       
     
 
 })
