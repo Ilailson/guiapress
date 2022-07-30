@@ -16,7 +16,7 @@ router.post("/categories/save",(req, res) => {
         Category.create({
             title: title,
             slug: slugify(title)
-        }).then(() => {res.redirect("/")})
+        }).then(() => {res.redirect("/admin/categories/")})
 
     }else{
         res.redirect("/admin/categories/new")
@@ -41,7 +41,7 @@ router.get("/admin/categories",(req, res) => {
 
 
 router.post("/categories/delete",(req, res) =>{
-    var id = req.body.id
+    var id = req.body.id 
 
     if(id != undefined){
         if(!isNaN(id)){
@@ -53,6 +53,31 @@ router.post("/categories/delete",(req, res) =>{
     }else{
         res.redirect("/admin/categories")
     }
+})
+
+router.get("/admin/categories/edit/:id",(req, res) =>{
+    var id = req.params.id //id vindo do parametro das rotas
+    
+    //se não for numero vai da o redirect
+    if(isNaN(id)){//corrigir esso 1abced 
+        res.redirect("/admin/categories")
+    }
+
+    //pesquisando categorias no banco
+    Category.findByPk(id)
+    .then(category => {
+        if (category != undefined) {
+            res.render("admin/categories/edit",{category:category})
+            
+        } else {
+            res.redirect("/admin/categories")
+        }
+
+    }).catch(erro => { //caso ocorra erro na busca
+        res.redirect("/admin/categories")
+    })
+
+    
 })
 
 module.exports = router
