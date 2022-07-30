@@ -14,13 +14,15 @@
                     <th>Ações</th>
                 </tr>
             </thead><!--MostrarTituloColuna -->
-            <tbody>
-                <tr>
-                    <th>1</th>
-                    <th>Dev Web</th>
-                    <th>Dev-web</th>
-                    <th>Lindo</th>
-                </tr>
+            <tbody>                
+                <% categories.forEach(category => { %>
+                    <tr>
+                        <th><%= category.id %></th>
+                        <th><%= category.title %></th>
+                        <th><%= category.slug %></th>
+                        <th>Lindo</th>
+                    </tr>
+                <% }) %>
             </tbody><!--MostrarDados -->
         </table>
 
