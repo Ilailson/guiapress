@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
+
+//savar - banco
 const Category = require('../categories/Category')
+const slugify = require('slugify')
+const Article = require('./Article')
+
 
 router.get('/articles', (req, res) => {
     res.send('Rota de artigons')
@@ -22,5 +27,19 @@ router.get('/admin/articles/new', (req, res) => {
 })
 
 
+router.post('/articles/save', (req, res) => {
+    var title = req.body.title
+    var body = req.body.body
+    var categoryId = req.body.category
+
+    //salvando - artigo
+
+    Article.create({
+        title:title, 
+        slug: slugify(title),
+        body:body,
+        categoryId: categoryId
+    }).then(() => res.redirect('/articles/'))
+})
 
 module.exports = router
