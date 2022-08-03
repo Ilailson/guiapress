@@ -6,11 +6,14 @@ const Category = require('../categories/Category')
 const slugify = require('slugify')
 const Article = require('./Article')
 
-
+/**REDERIZANDO E PASSANDO - VIEW 
+ * 
+*/
 router.get('/admin/articles', (req, res) => {
-    res.render('admin/articles/index')
-}
-)
+    Article.findAll().then(articles => {
+        res.render('admin/articles/index',{articles: articles})
+    })    
+})
 
 router.get('/admin/articles/new', (req, res) => {
     /**Exibir lista de categorias 
