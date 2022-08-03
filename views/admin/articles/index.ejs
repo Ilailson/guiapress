@@ -12,16 +12,21 @@
                     <th>Id</th>
                     <th>Titulo</th>
                     <th>Slug</th>
-                    <th>Slug</th>
+                    <th>Categoria</th>
                     <th>Ações</th>
                 </tr>
             </thead><!--MostrarTituloColuna -->
-            <tbody>                
+            <tbody>  
+                <%  articles.forEach(article => { %>
+                    <td><%= article.id %></td>
+                    <td><%= article.title %></td>
+                    <td><%= article.slug %></td>
+                    <td><%= article.categoryId %></td>
+                    <td>Ações</td>
+               <% }) %>            
                 
             </tbody><!--MostrarDados -->
         </table>
-
-        
     </div>
 </body>
 <%- include('../../partials/footer.ejs')%>
