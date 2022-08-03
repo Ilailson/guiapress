@@ -1,0 +1,40 @@
+<%- include('../../partials/header.ejs')%>
+<body>
+    <%- include('../../partials/navbar.ejs')%>
+    <div class="container">
+        <hr>
+        <h2>Artigos</h2>
+        <a class="btn btn-success" href="/admin/articles/new">Criar nova Artigo</a>
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titulo</th>
+                    <th>Slug</th>
+                    <th>Slug</th>
+                    <th>Ações</th>
+                </tr>
+            </thead><!--MostrarTituloColuna -->
+            <tbody>                
+                
+            </tbody><!--MostrarDados -->
+        </table>
+
+        
+    </div>
+</body>
+<%- include('../../partials/footer.ejs')%>
+
+<!--Impedir envio de formulário sem configuração.-->
+<script>
+    function confirmarDelecao(event, form){
+        event.preventDefault();//evitar envio - formulario
+       var decision= confirm("Você quer deletar esta categoria?")
+
+       if (decision) {//se clicar em ok deleta
+        console.log("Escolhir deletar")
+        form.submit();
+       } 
+    }
+</script>
