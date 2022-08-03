@@ -8,9 +8,12 @@ const Article = require('./Article')
 
 /**REDERIZANDO E PASSANDO - VIEW 
  * 
+ * JOINS NA BUSCA - EXIBIR NOME CATEGORIA - NÃO ID
 */
 router.get('/admin/articles', (req, res) => {
-    Article.findAll().then(articles => {
+    Article.findAll({
+        include: [{model: Category}]
+    }).then(articles => {
         res.render('admin/articles/index',{articles: articles})
     })    
 })
