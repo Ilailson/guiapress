@@ -7,8 +7,8 @@ const slugify = require('slugify')
 const Article = require('./Article')
 
 
-router.get('/articles', (req, res) => {
-    res.send('Rota de artigons')
+router.get('/admin/articles', (req, res) => {
+    res.render('admin/articles/index')
 }
 )
 
