@@ -29,12 +29,14 @@ app.use("/",articlesController)
 
     
 //===============rotas===================
+/**Mostrando o artigo na home */
 app.get
-("/",(req, res) => 
-    {
-        res.render("index")   
-    }
-)
+("/",(req, res) => {
+    Article.findAll().then(articles => {
+        res.render("index",{ articles: articles})  
+    })
+      
+})
 
 
 
