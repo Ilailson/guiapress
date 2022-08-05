@@ -28,7 +28,7 @@ app.use("/",categoriesController)
 app.use("/",articlesController)
 
     
-//===============rotas===================
+//===============rotas home===================
 /**Mostrando o artigo na home */
 app.get
 ("/",(req, res) => {
@@ -38,6 +38,24 @@ app.get
       
 })
 
+app.get("/:slug",(req, res) => {
+var slug = req.params.slug
+
+Article.findOne({
+    where: {slug: slug}
+}).then(artigo => {
+    if(article =! undefined){
+        res.render("article",{artigo: artigo})
+    }else{ //nulo
+        res.redirect("/")
+    }
+
+}).catch(err => { //erro
+    res.redirect("/")
+})
+
+})
+//========================fim rota home===========================================
 
 
 app.listen
