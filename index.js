@@ -32,8 +32,18 @@ app.use("/",articlesController)
 /**Mostrando o artigo na home */
 app.get
 ("/",(req, res) => {
-    Article.findAll({order: [['id', 'DESC']]}).then(articles => {
-        res.render("index",{ articles: articles})  
+    Article.findAll({order: [['id', 'DESC']]})
+    .then(articles => {
+
+        /**Menu dinamico 
+         * Passando categorias para a view
+         * categories: categories
+        */
+        Category.findAll().then(categories => {
+            res.render("index",{ articles: articles, categories: categories})  
+        })
+
+       
     })
       
 })
@@ -45,7 +55,10 @@ Article.findOne({
     where: {slug: slug}
 }).then(artigo => {
     if(article =! undefined){
-        res.render("article",{artigo: artigo})
+
+        Category.findAll().then(categories => {
+            res.render("article",{ artigo: artigo, categories: categories})  
+        })
     }else{ //nulo
         res.redirect("/")
     }
