@@ -14,5 +14,32 @@
 		  "<%= ${1:view}.${2:variavel} %>    "
 		],
 		"description": "Mostrar informação do banco"
+	  },
+	  "Rota para deletar por id": {
+		"prefix": [
+			"ejs_rota_deletar",
+			"ejs_rota_apagar"
+		]
+		"body": [
+		  "router.post(\"${1:caminho}/delete\",(req, res) =>{",
+		  "    var ${2:primaryKey} = req.body.$2 ",
+		  "",
+		  "    if($2 != undefined){",
+		  "        if(!isNaN($2)){",
+		  "            ${3:Tabela}.destroy({where: {$2: $2}})",
+		  "            .then(() => {res.redirect(\"${4:informarPagina}\")})",
+		  "        }else{",
+		  "            res.redirect(\"${4:informarPagina}\")",
+		  "        }",
+		  "    }else{",
+		  "        res.redirect(\"${4:informarPagina}\")",
+		  "    }",
+		  "})"
+		],
+		"description": [
+				"Excluir um registro por id\r\n",
+				"\t\b!isNaN",
+				"\t\bpost - é enviado do formulário para o banco"
+			]
 	  }
 }
