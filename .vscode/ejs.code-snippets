@@ -1,0 +1,18 @@
+{
+	"Mostrar informações do banco na view": {
+		"prefix": "mostrarview",
+		"body": [
+		  "<%  ${1:nomeView}.forEach(${2:NomeLaço} => { %>",
+		  "   ",
+		  "<% }) %>    "
+		],
+		"description": "Mostrar informações do banco na view"
+	  },
+	  "Mostrar informação do banco": {
+		"prefix": "mostrarvalor",
+		"body": [
+		  "<%= ${1:view}.${2:variavel} %>    "
+		],
+		"description": "Mostrar informação do banco"
+	  }
+}
