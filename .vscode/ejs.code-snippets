@@ -1,6 +1,6 @@
 {
 	"Mostrar informações do banco na view": {
-		"prefix": "mostrarview",
+		"prefix": "ejs_mostrarview",
 		"body": [
 		  "<%  ${1:nomeView}.forEach(${2:NomeLaço} => { %>",
 		  "   ",
@@ -9,7 +9,7 @@
 		"description": "Mostrar informações do banco na view"
 	  },
 	  "Mostrar informação do banco": {
-		"prefix": "mostrarvalor",
+		"prefix": "ejs_mostrarvalor",
 		"body": [
 		  "<%= ${1:view}.${2:variavel} %>    "
 		],
