@@ -68,6 +68,38 @@ Article.findOne({
 })
 
 })
+
+/**
+ * essa rota somente tem a ver com com arquivos padrões
+ * index.ejs - index.js
+ * */ 
+app.get("/category/:slug",(req, res) =>{
+    var slug = req.params.slug 
+    //incluindo todos os artigos que fazer parte da categoria
+    //variavel da view padrão index.ejs article
+    //lista de artigos do bancos. para isso tem que tem o include informado nesta rota -  include: model: Article
+    //após passar a lista de categorias
+    Category.findOne({
+        where: {
+            slug: slug
+        }, 
+        include: [{model: Article}]
+    }).then(category => {
+        if(category !== undefined){
+            Category.findAll().then(categories => {
+                res.render("index", {articles: category.articles, categories: categories })
+            })
+
+
+        }else{
+            res.redirect("/")
+        }
+    }).catch(err => {
+        res.redirect("/")
+    })
+
+    
+})
 //========================fim rota home===========================================
 
 
