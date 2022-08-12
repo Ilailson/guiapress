@@ -63,4 +63,23 @@ router.post("/articles/delete",(req, res) =>{
         res.redirect("/admin/articles")
     }
 })
+
+router.get("/admin/articles/edit/:id",(req, res) =>{
+    var id = req.params.id 
+
+    Article.findByPk(id).then(article => {
+        if(article !== undefined) {
+            Category.findAll().then(categories => {
+
+                res.render("admin/articles/edit",{categories: categories}) //para exibir o laço na pagina edit
+            })
+
+        }else {
+            res.redirect("/")
+        }
+    }).catch(error => {
+        res.redirect("/")
+    })
+    
+})
 module.exports = router
