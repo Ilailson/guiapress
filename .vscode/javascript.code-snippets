@@ -26,5 +26,72 @@
 				"\t\b!isNaN",
 				"\t\bpost - é enviado do formulário para o banco"
 			]
+	  },
+	  "Variavel para cordo de texto vindo da view": {
+		"scope": "javascript",
+		"prefix": "view_body",
+		"body": [
+		  " var $1 = req.body.$1"
+		],
+		"description": "Variavel para cordo de texto vindo da view"
+	  },
+	  "Variavel para parametro vindo de uma view": {
+		"scope": "javascript",
+		"prefix": "view_params",
+		"body": [
+		  " var $1 = req.params.$1"
+		],
+		"description": "Variavel para parametro vindo de uma view"
+	  },
+	  "Rota post para salvar no banco": {
+		"scope": "javascript",
+		"prefix": "rota_salvar",
+		"body": [
+		  "router.post(\"/${1:caminho}/save\",(req, res) => {",
+		  "    var $2 = req.body.$2",
+		  "    //digitar outras variaveis se precisar",
+		  "    if($2 != undefined){",
+		  "        ",
+		  "        ${3:Tabela}.create({",
+		  "            $2: $2",
+		  "            //digitar outras variaveis se precisar separado por virgula",
+		  "        }).then(() => {res.redirect(\"/admin/$1/\")})",
+		  "    }else{",
+		  "        res.redirect(\"/admin/$1/new\")",
+		  "    }",
+		  "})"
+		],
+		"description": "Rota post para salvar no banco"
+	  },
+	  "Rota get para editar registro no banco": {
+		"scope": "javascript",
+		"prefix": "rota_editar",
+		"body": [
+		  "router.get(\"/admin/${1:caminho}/edit/:id\",(req, res) =>{",
+		  "    var ${2:id} = req.params.${2:id} //id vindo do parametro das rotas",
+		  "    ",
+		  "    //se não for numero vai da o redirect",
+		  "    if(isNaN(${3:id})){//corrigir id com letras ",
+		  "        res.redirect(\"/admin/${1:caminho}\")",
+		  "    }",
+		  "",
+		  "",
+		  "  //=====================================Atualizar no banco=========================  ",
+		  "    //pesquisando categorias no banco",
+		  "    ${4:Tabela}.findByPk(id)",
+		  "    .then(${5:nomeVariavel} => {",
+		  "        if (${5:nomeVariavel} != undefined) {",
+		  "            res.render(\"admin/${1:caminho}/edit\",{${5:nomeVariavel}:${5:nomeVariavel}})",
+		  "            ",
+		  "        } else {",
+		  "            res.redirect(\"/admin/${1:caminho}\")",
+		  "        }",
+		  "",
+		  "    }).catch(erro => { //caso ocorra erro na busca",
+		  "        res.redirect(\"/admin/${1:caminho}\")",
+		  "    })",
+		  "})"
+		],
+		"description": "Rota get para editar registro no banco"
 	  }
 }
