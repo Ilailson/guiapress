@@ -1,6 +1,7 @@
 {
 	"Mostrar informações do banco na view": {
-		"prefix": "ejs_mostrarview",
+		"scope": "html",
+		"prefix": "mostrarview",
 		"body": [
 		  "<%  ${1:nomeView}.forEach(${2:NomeLaço} => { %>",
 		  "   ",
@@ -9,37 +10,35 @@
 		"description": "Mostrar informações do banco na view"
 	  },
 	  "Mostrar informação do banco": {
-		"prefix": "ejs_mostrarvalor",
+		"scope": "html",
+		"prefix": "mostrarvalor",
 		"body": [
 		  "<%= ${1:view}.${2:variavel} %>    "
 		],
 		"description": "Mostrar informação do banco"
 	  },
-	  "Rota para deletar por id": {
-		"prefix": [
-			"ejs_rota_deletar",
-			"ejs_rota_apagar"
-		]
+	  "Comentario várias linhas ": {
+		"scope": "html",
+		"prefix": "comentario_linhas",
 		"body": [
-		  "router.post(\"${1:caminho}/delete\",(req, res) =>{",
-		  "    var ${2:primaryKey} = req.body.$2 ",
-		  "",
-		  "    if($2 != undefined){",
-		  "        if(!isNaN($2)){",
-		  "            ${3:Tabela}.destroy({where: {$2: $2}})",
-		  "            .then(() => {res.redirect(\"${4:informarPagina}\")})",
-		  "        }else{",
-		  "            res.redirect(\"${4:informarPagina}\")",
-		  "        }",
-		  "    }else{",
-		  "        res.redirect(\"${4:informarPagina}\")",
-		  "    }",
-		  "})"
+			"<!-- ",
+			"$1",
+			"-->"
 		],
-		"description": [
-				"Excluir um registro por id\r\n",
-				"\t\b!isNaN",
-				"\t\bpost - é enviado do formulário para o banco"
-			]
+		"description": "Comentario html"
+	  },
+	  "Comentario várias linhas ": {
+		"scope": [
+			"css",
+			"javascript"
+		],
+		"prefix": "coment_script_css",
+		"body": [
+			"/*",
+			"$1",
+			"*/"
+		],
+		"description": "Comentario html"
 	  }
+
 }
