@@ -62,10 +62,9 @@
 		  "})"
 		],
 		"description": "Rota post para salvar no banco"
-	  },
-	  "Rota get para editar registro no banco": {
+	  },"Rota para pegar as informações do banco por id": {
 		"scope": "javascript",
-		"prefix": "rota_editar",
+		"prefix": "rota_buscar_por_id",
 		"body": [
 		  "router.get(\"/admin/${1:caminho}/edit/:id\",(req, res) =>{",
 		  "    var ${2:id} = req.params.${2:id} //id vindo do parametro das rotas",
@@ -92,6 +91,22 @@
 		  "    })",
 		  "})"
 		],
-		"description": "Rota get para editar registro no banco"
+		"description": "Rota para pegar as informações do banco por id"
+	  },"Rota para pegar as informações do banco por id": {
+		"scope": "javascript",
+		"prefix": "rota_editar",
+		"body": [
+		  "router.post(\"/${1:caminho}/update\", (req, res) => {",
+		  "    var ${2:id} = req.body.${2:id}",
+		  "    var $3 = req.body.$3",
+		  "    var $4 = req.body.$4",
+		  "",
+		  "    //Informar outras variaveis que serão alteradas no banco. ",
+		  "",
+		  "    ${5:Tabela}.update({$3:$3, $4:$4},{where: {${2:id}:${2:id}}",
+		  "}).then(${6:tabela} => {res.redirect(\"/admin/${1:caminho}\")})",
+		  "})"
+		],
+		"description": "Rota para pegar as informações do banco por id"
 	  }
 }
