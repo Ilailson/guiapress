@@ -2,8 +2,8 @@
 	  "Rota para deletar por id": {
 		"scope": "javascript",
 		"prefix": [
-			"rota_deletar",
-			"rota_apagar"
+			"bau_rota_deletar",
+			"bau_rota_apagar"
 		]
 		"body": [
 		  "router.post(\"${1:caminho}/delete\",(req, res) =>{",
@@ -29,7 +29,7 @@
 	  },
 	  "Variavel para cordo de texto vindo da view": {
 		"scope": "javascript",
-		"prefix": "view_body",
+		"prefix": "bau_view_body",
 		"body": [
 		  " var $1 = req.body.$1"
 		],
@@ -37,7 +37,7 @@
 	  },
 	  "Variavel para parametro vindo de uma view": {
 		"scope": "javascript",
-		"prefix": "view_params",
+		"prefix": "bau_view_params",
 		"body": [
 		  " var $1 = req.params.$1"
 		],
@@ -45,7 +45,7 @@
 	  },
 	  "Rota post para salvar no banco": {
 		"scope": "javascript",
-		"prefix": "rota_salvar",
+		"prefix": "bau_rota_salvar",
 		"body": [
 		  "router.post(\"/${1:caminho}/save\",(req, res) => {",
 		  "    var $2 = req.body.$2",
@@ -62,7 +62,8 @@
 		  "})"
 		],
 		"description": "Rota post para salvar no banco"
-	  },"Rota para pegar as informações do banco por id": {
+	  },
+	  "Rota para pegar as informações do banco por id": {
 		"scope": "javascript",
 		"prefix": "rota_buscar_por_id",
 		"body": [
@@ -92,9 +93,10 @@
 		  "})"
 		],
 		"description": "Rota para pegar as informações do banco por id"
-	  },"Rota para pegar as informações do banco por id": {
+	  },
+	  "Rota para editar as informações pegas pela rota do id ": {
 		"scope": "javascript",
-		"prefix": "rota_editar",
+		"prefix": ["bau_rota_atualizar","bau_rota_editar"],
 		"body": [
 		  "router.post(\"/${1:caminho}/update\", (req, res) => {",
 		  "    var ${2:id} = req.body.${2:id}",
@@ -107,6 +109,55 @@
 		  "}).then(${6:tabela} => {res.redirect(\"/admin/${1:caminho}\")})",
 		  "})"
 		],
-		"description": "Rota para pegar as informações do banco por id"
-	  }
+		"description": [
+			"Rota para pegar as informações do banco por id", 
+			"Esta rota depende da rota busca por id"
+	]
+	  },
+	  
+	  "Comentario várias linhas css e javascript ": {
+		"scope": "javascript",
+		"prefix": "bau_comentar",
+		"body": [
+			"/*",
+			"$1",
+			"*/"
+		],
+		"description": "Comentario várias linhas css e javascript"
+	  },
+	  "Redirecionar para uma página": {
+		"scope": "javascript",
+		"prefix": "bau_redirecionar",
+		"body": [
+			"res.redirect(\"/${1:informar com a barra}\")"
+			
+		],
+		"description": "Redirecionar para uma página"
+	  },
+	  "Renderizar para uma página": {
+		"scope": "javascript",
+		"prefix": "bau_renderizar",
+		"body": [
+			"res.render(\"${1:Informar caminho sem a barra}\")"
+			
+		],
+		"description": "Renderizar para uma página"
+	  },
+	  "Variavel com parametro de rotas": {
+		"scope": "javascript",
+		"prefix": "bau_variavel_parametro",
+		"body": [
+		  "var ${1:variavel}= req.params.${1:variavel}"
+		],
+		"description": "Variavel com parametro de rotas"
+	  },
+	  "Variavel de corpo de formulário": {
+		"scope": "javascript",
+		"prefix": "bau_variavel_corpo",
+		"body": [
+		  "var ${1:variavel}= req.body.${1:variavel}"
+		],
+		"description": "Variavel de corpo de formulário"
+	  },
+
 }

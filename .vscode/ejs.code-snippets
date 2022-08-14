@@ -17,9 +17,9 @@
 		],
 		"description": "Mostrar informação do banco"
 	  },
-	  "Comentario várias linhas ": {
+	  "Comentario html linhas ": {
 		"scope": "html",
-		"prefix": "comentario_linhas",
+		"prefix": "bau_comentar",
 		"body": [
 			"<!-- ",
 			"$1",
@@ -27,18 +27,15 @@
 		],
 		"description": "Comentario html"
 	  },
-	  "Comentario várias linhas ": {
-		"scope": [
-			"css",
-			"javascript"
-		],
-		"prefix": "coment_script_css",
+	  "Comentario várias linhas css e javascript ": {
+		"scope": "css",
+		"prefix": "bau_comentar_css",
 		"body": [
 			"/*",
 			"$1",
 			"*/"
 		],
-		"description": "Comentario html"
+		"description": "Comentario várias linhas css e javascript"
 	  }
 
 }
