@@ -53,11 +53,11 @@ var slug = req.params.slug
 
 Article.findOne({
     where: {slug: slug}
-}).then(artigo => {
-    if(article =! undefined){
+}).then(articles => {
+    if(articles =! undefined){
 
         Category.findAll().then(categories => {
-            res.render("article",{ artigo: artigo, categories: categories})  
+            res.render("article",{ articles: articles, categories: categories})  
         })
     }else{ //nulo
         res.redirect("/")
