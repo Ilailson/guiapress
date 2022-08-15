@@ -13,8 +13,18 @@
                     <textarea class="form-control" placeholder="Escreva o artigo" name="body" id="article"></textarea> <br>
                     <label>Categoria</label>
                     <select name="category" class="form-control" >
+                        <!-- 
+                        se o id da categoria for igual a artigo.categoriaId 
+                        então a cateria ja vai vim selecionada
+
+                        se não existir não vem selecionado. 
+                        -->
                         <% categories.forEach((category) => { %>
-                            <option value="<%= category.id %>"><%= category.title %></option>
+                            <% if(category.id == article.categoryId) { %>
+                                <option value="<%= category.id %>" selected><%= category.title %></option>
+                            <% } else { %>
+                                <option value="<%= category.id %>"><%= category.title %></option>
+                            <% } %>
                         <%}) %>
                     </select><br>
                     <button class="btn btn-success">Atualizar</button>
