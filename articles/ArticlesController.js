@@ -87,4 +87,18 @@ router.get("/admin/articles/edit/:id", (req, res) => {
 })
 })
 
+router.post("/articles/update", (req, res) => {
+    var id = req.body.id
+    var title = req.body.title
+    var body = req.body.body
+    var category = req.body.category
+
+    //Informar outras variaveis que serão alteradas no banco. 
+
+    Article.update({title:title, body:body, categoryId:category, slug:slugify(title) },{where: {id:id}
+}).then(article => {res.redirect("/admin/articles")}).catch(error => {
+    res.redirect("/")
+})
+})
+
 module.exports = router
