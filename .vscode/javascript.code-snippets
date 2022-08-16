@@ -65,7 +65,7 @@
 	  },
 	  "Rota para pegar as informações do banco por id": {
 		"scope": "javascript",
-		"prefix": "rota_buscar_por_id",
+		"prefix": "rota_buscar_por_id_bt_editar",
 		"body": [
 		  "router.get(\"/admin/${1:caminho}/edit/:id\",(req, res) =>{",
 		  "    var ${2:id} = req.params.${2:id} //id vindo do parametro das rotas",
@@ -92,7 +92,10 @@
 		  "    })",
 		  "})"
 		],
-		"description": "Rota para pegar as informações do banco por id"
+		"description":[ 
+			"Rota para pegar as informações do banco por id",
+			"Esta rota será utilizada no botão editar"
+		]
 	  },
 	  "Rota para editar as informações pegas pela rota do id ": {
 		"scope": "javascript",
@@ -100,12 +103,12 @@
 		"body": [
 		  "router.post(\"/${1:caminho}/update\", (req, res) => {",
 		  "    var ${2:id} = req.body.${2:id}",
-		  "    var $3 = req.body.$3",
-		  "    var $4 = req.body.$4",
+		  "    var ${3:variavl} = req.body.${3:variavl}",
+		  "    var ${4:variavel} = req.body.${4:variavel}",
 		  "",
 		  "    //Informar outras variaveis que serão alteradas no banco. ",
 		  "",
-		  "    ${5:Tabela}.update({$3:$3, $4:$4},{where: {${2:id}:${2:id}}",
+		  "    ${5:TABELA}.update({${3:variavl}:${3:variavl}, ${4:variavel}:${4:variavel}},{where: {${2:id}:${2:id}}",
 		  "}).then(${6:tabela} => {res.redirect(\"/admin/${1:caminho}\")})",
 		  "})"
 		],
