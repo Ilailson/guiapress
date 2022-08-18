@@ -6,10 +6,12 @@ const connection = require('./database/database')
 //importando 
 const categoriesController = require('./categories/CategoriesController')
 const articlesController = require('./articles/ArticlesController')
+const usersController = require('./users/UserController')
 
 //criar tabelas no banco
 const Article = require('./articles/Article')
 const Category = require('./categories/Category')
+const Users = require('./Users/User')
 
 
 app.set('view engine', 'ejs')
@@ -26,6 +28,7 @@ connection.authenticate()
 //dizendo para aplicação que quero usar aquelas rotas que estão em categories
 app.use("/",categoriesController)
 app.use("/",articlesController)
+app.use("/",usersController)
 
     
 //===============rotas home===================

@@ -42,6 +42,7 @@
 <%- include('../../partials/footer.ejs')%>
 <script src="/tinymce/js/tinymce/tinymce.min.js"></script>
 
+<script>
   tinymce.init({
         language: 'pt_BR',
         selector: "#article",
@@ -53,5 +54,5 @@
             tinymce.get("article").setContent($("#content").html())
         }
     })
-
+</script>
 
