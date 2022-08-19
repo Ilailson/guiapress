@@ -1,0 +1,47 @@
+<%- include('../../partials/header.ejs')%>
+<%- include('../../partials/navbar.ejs')%>
+
+<div class="container">
+    <hr>
+    <h2>Usuários</h2>
+    <a class="btn btn-success" href="/admin/users/create">Criar novo usuário</a>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead><!--MostrarTituloColuna -->
+        <tbody>                
+            <% users.forEach(user => { %>
+                <tr>
+                    <th><%= user.id %></th>
+                    <th><%= user.email %></th>
+                    <th>
+                        <a class="btn btn-warning" href="/admin/users/edit/<%= user.id %>">Editar</a>
+
+                        <form method="post" action="/users/delete" style="display: inline;" onsubmit="confirmarDelecao(event, this)">
+                            <input type="hidden" name="id" value="<%= user.id %>">
+                            <button class="btn btn-danger">Excluir</button>
+                        </form>
+                    </th>
+                </tr>
+            <% }) %>
+        </tbody><!--MostrarDados -->
+    </table>
+</div>
+<%- include('../../partials/footer.ejs')%>
+<!--Impedir envio de formulário sem configuração.-->
+<script>
+    function confirmarDelecao(event, form){
+        event.preventDefault();//evitar envio - formulario
+       var decision= confirm("Você quer deletar esta categoria?")
+
+       if (decision) {//se clicar em ok deleta
+        console.log("Escolhir deletar")
+        form.submit();
+       } 
+    }
+</script>
