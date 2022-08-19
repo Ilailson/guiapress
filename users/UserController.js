@@ -1,97 +1,111 @@
 const express = require('express')
 const router = express.Router()
 const User = require("./User") //salvar - banco
-const slugify = require('slugify')
+const bcrypt = require('bcryptjs')
 
-router.get("/admin/categories/new",(req, res) => {
-    res.render("admin/categories/new")
-})
-
-
-//slug remove espaço
-router.post("/categories/save",(req, res) => {
-    var title = req.body.title //pegando - formulario
-    if(title != undefined){
-        
-        Category.create({
-            title: title,
-            slug: slugify(title)
-        }).then(() => {res.redirect("/admin/categories/")})
-
-    }else{
-        res.redirect("/admin/categories/new")
-    }
-
-})
-
-
-router.get("/admin/categories",(req, res) => {
-
-    //mostrando categorias salvas no banco
-    Category.findAll().then(categories => {
-
-
-        res.render("admin/categories/index", {categories: categories})
-    })
+router.get("/admin/users",(req, res) =>{
+   User.findAll().then(users =>{
+    res.render("admin/users/index", {users:users})
+   }).catch(err =>{
+    console.error(err)
     
-       
-    
+   })
 
 })
 
+//exibir página de criação de usuário.
+router.get("/admin/users/create",(req, res) =>{
+    res.render("admin/users/create")
+ })
 
-router.post("/categories/delete",(req, res) =>{
+
+ //rota para criar os usuários
+ router.post("/users/create",(req, res) => {
+     var email = req.body.email
+     var password = req.body.password
+
+     //criptografando. 
+     var salt = bcrypt.genSaltSync(10)
+     var hash = bcrypt.hashSync(password)
+
+     //verificando se já tem email cadastrado no banco. 
+
+     User.findOne({ where: { email: email}})
+     .then( user => {
+        if(user ==  undefined){ //email não cadastrado. 
+            User.create({ 
+                email:email, 
+                password:hash
+            }).then(() => {
+                res.redirect("/admin/users")
+                console.log("Criou")
+            }).catch(err => {
+                console.log(err)
+                res.redirect("/")
+            })
+        }else {//email já cadastrado. 
+            res.redirect("/admin/users/create")
+            console.log("Não criou")
+        }
+     }).catch(err => {
+        res.redirect("/admin/users/create")
+        console.log(err)
+     })
+})
+
+
+router.post("/users/delete",(req, res) =>{
     var id = req.body.id 
 
     if(id != undefined){
         if(!isNaN(id)){
-            Category.destroy({where: {id: id}})
-            .then(() => {res.redirect("/admin/categories")})
+            User.destroy({where: {id: id}})
+            .then(() => {res.redirect("/admin/users")})
         }else{
-            res.redirect("/admin/categories")
+            res.redirect("/admin/users")
         }
     }else{
-        res.redirect("/admin/categories")
+        res.redirect("/admin/users")
     }
 })
 
-router.get("/admin/categories/edit/:id",(req, res) =>{
+router.get("/admin/users/edit/:id",(req, res) =>{
     var id = req.params.id //id vindo do parametro das rotas
     
     //se não for numero vai da o redirect
     if(isNaN(id)){//corrigir esso 1abced 
-        res.redirect("/admin/categories")
+        res.redirect("/admin/users")
     }
 
 
   //=====================================Atualizar no banco=========================  
     //pesquisando categorias no banco
-    Category.findByPk(id)
-    .then(category => {
-        if (category != undefined) {
-            res.render("admin/categories/edit",{category:category})
+    User.findByPk(id)
+    .then(users => {
+        if (users != undefined) {
+            res.render("admin/users/edit",{users:users})
             
         } else {
-            res.redirect("/admin/categories")
+            res.redirect("/admin/users")
         }
 
     }).catch(erro => { //caso ocorra erro na busca
-        res.redirect("/admin/categories")
+        res.redirect("/admin/users")
     })
 
     
 })
 
 
-router.post("/categories/update", (req, res) => {
+router.post("/users/update", (req, res) => {
     var id = req.body.id
-    var title = req.body.title
+    var email = req.body.email
+    var password = req.body.password
 
-    Category.update({title:title, slug: slugify(title)},
+    User.update({email:email,password:password},
     {where: {id:id}
 })
-    .then(category => {res.redirect("/admin/categories")})
+    .then(users => {res.redirect("/admin/users")})
 })
-
 //Fim atualização
 module.exports = router
