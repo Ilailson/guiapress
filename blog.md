@@ -7,6 +7,7 @@
         npm install ejs --save
         npm install body-parser --save
         npm install --save slugify
+        npm install --save bcryptjs -----------> hassh de senha
         bootstrap
 
 ## ARQUIVO `INDEX.JS`
@@ -16,3 +17,6 @@
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
 ```
+
+## realizando testes de variaveis do formulario.
+     res.json({email, password})
