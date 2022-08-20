@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const session = require('express-session')
 const connection = require('./database/database')
 
 //importando 
@@ -13,6 +14,13 @@ const Article = require('./articles/Article')
 const Category = require('./categories/Category')
 const Users = require('./Users/User')
 
+//configurando sessão
+app.use(session({
+    secret: "qualquercoisa", 
+    cookie: {
+        maxAge: 30000000
+    }
+}))
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
@@ -30,7 +38,9 @@ app.use("/",categoriesController)
 app.use("/",articlesController)
 app.use("/",usersController)
 
-    
+
+
+
 //===============rotas home===================
 /**Mostrando o artigo na home */
 app.get
