@@ -5,12 +5,13 @@ const router = express.Router()
 const Category = require('../categories/Category')
 const slugify = require('slugify')
 const Article = require('./Article')
+const adminAuth = require('../middlewares/adminAuth') //importando 
 
 /**REDERIZANDO E PASSANDO - VIEW 
  * 
  * JOINS NA BUSCA - EXIBIR NOME CATEGORIA - NÃO ID
 */
-router.get('/admin/articles', (req, res) => {
+router.get('/admin/articles', adminAuth, (req, res) => {
     Article.findAll({
         include: [{model: Category}]
     }).then(articles => {
@@ -18,7 +19,7 @@ router.get('/admin/articles', (req, res) => {
     })    
 })
 
-router.get('/admin/articles/new', (req, res) => {
+router.get('/admin/articles/new', adminAuth, (req, res) => {
     /**Exibir lista de categorias 
      *  Passando lista de categorias para a viw
      *  res.render('admin/articles/new',{categories:categories})
@@ -33,7 +34,7 @@ router.get('/admin/articles/new', (req, res) => {
 })
 
 
-router.post('/articles/save', (req, res) => {
+router.post('/articles/save', adminAuth, (req, res) => {
     var title = req.body.title
     var body = req.body.body
     var categoryId = req.body.category
@@ -49,7 +50,7 @@ router.post('/articles/save', (req, res) => {
 })
 
 
-router.post("/articles/delete",(req, res) =>{
+router.post("/articles/delete", adminAuth, (req, res) =>{
     var id = req.body.id 
 
     if(id != undefined){
@@ -68,7 +69,7 @@ router.post("/articles/delete",(req, res) =>{
 /*
 rota para pegar o id passado por parametro e mostrar na view
 */
-router.get("/admin/articles/edit/:id", (req, res) => {
+router.get("/admin/articles/edit/:id", adminAuth,  (req, res) => {
     var id = req.params.id
 
     Article.findByPk(id).then(article => {
@@ -87,7 +88,7 @@ router.get("/admin/articles/edit/:id", (req, res) => {
 })
 })
 
-router.post("/articles/update", (req, res) => {
+router.post("/articles/update", adminAuth, (req, res) => {
     var id = req.body.id
     var title = req.body.title
     var body = req.body.body
