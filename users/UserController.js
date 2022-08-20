@@ -107,5 +107,53 @@ router.post("/users/update", (req, res) => {
 })
     .then(users => {res.redirect("/admin/users")})
 })
+
+//rota formulário login
+router.get("/login", (req, res) => {
+    res.render("admin/users/login")
+})
+
+//rota logar
+
+router.post("/authenticate", (req, res) => {
+    var email= req.body.email
+    var password= req.body.password
+
+    //pesquisando usuario
+    User.findOne({where: {email:email}})
+    .then(user => {
+        if (user != undefined) {
+            console.log(user)
+            //validando senha
+            var correct =bcrypt.compareSync(password, user.password) //comparando senha da variavel com a do banco
+            if (correct){
+                //criando a sesão
+                req.session.user = {
+                    id:  user.id,
+                    email: user.email
+                }
+                
+                res.redirect("/admin/articles")
+            }else{
+                res.redirect("/login")
+                
+            }
+
+        } else {
+            res.redirect("/login")
+            
+        }
+    })
+    .catch(erro => {
+        res.redirect("/login")
+        console.log("=============================ERRO=======================")
+        console.error(erro)
+    })
+})
+
+router.get("/logout", (req, res) => {
+    req.session.user = undefined;
+    res.redirect("/");
+})
 //Fim atualização
 module.exports = router
