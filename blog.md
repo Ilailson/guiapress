@@ -8,6 +8,7 @@
         npm install body-parser --save
         npm install --save slugify
         npm install --save bcryptjs -----------> hassh de senha
+        npm install express-session --save 
         bootstrap
 
 ## ARQUIVO `INDEX.JS`
